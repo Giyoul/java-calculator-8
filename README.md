@@ -23,6 +23,9 @@
 - 커스텀 구분자 지정 양식이 틀릴 경우에 `IllegalArgumentException` 을 발생시킨 후 app을 종료시킨다.
 - 구분자를 가진 문자열의 시작 혹은 끝이 구분자일 경우 `IllegalArgumentException` 을 발생시킨 후 app을 종료시킨다.
 - 빈 문자열을 입력받을 경우 0을 반환한다.
+- 덧셈 대상이 숫자가 아닌 경우 `IllegalArgumentException` 을 발생시킨 후 app을 종료시킨다.
+- 덧셈 대상이 소수인 경우 `IllegalArgumentException` 을 발생시킨 후 app을 종료시킨다.
+- 공백이 커스텀 구분자인 경우에도 정상 작동한다.
 
 ### 4. 기타
 
