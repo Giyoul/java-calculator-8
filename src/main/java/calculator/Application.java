@@ -36,15 +36,15 @@ public class Application {
                 .map(d -> "\\" + d)
                 .collect(Collectors.joining("|"));
 
-        if (remaining.startsWith(",") || remaining.startsWith(":") || remaining.startsWith(
-                String.valueOf(delimiters.get(2)))) {
-            throw new IllegalArgumentException("Format error: Input cannot start with delimiter.");
-        }
-
-        if (remaining.endsWith(",") || remaining.endsWith(":") || remaining.endsWith(
-                String.valueOf(delimiters.get(2)))) {
-            throw new IllegalArgumentException("Format error: Input cannot end with delimiter.");
-        }
+        delimiters.stream().forEach(d -> {
+            String delim = String.valueOf(d);
+            if (remaining.startsWith(delim)) {
+                throw new IllegalArgumentException("Format error: Input cannot start with delimiter.");
+            }
+            if (remaining.endsWith(delim)) {
+                throw new IllegalArgumentException("Format error: Input cannot end with delimiter.");
+            }
+        });
 
         String[] nums = remaining.split(numSeparateDelimiterPattern);
 
