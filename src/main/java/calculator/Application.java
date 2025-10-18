@@ -1,6 +1,11 @@
 package calculator;
 
 import camp.nextstep.edu.missionutils.Console;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Application {
     public static void main(String[] args) {
@@ -9,7 +14,13 @@ public class Application {
         String input = Console.readLine();
         String output = "결과 : ";
 
+        List<Character> delimiters = new ArrayList<>(List.of(',', ':'));
+        Pattern customDelimiterPattern = Pattern.compile("^//(.)\\\\n"); // 문자열의 시작만 확인
+        Matcher customDelimiter = customDelimiterPattern.matcher(input);
 
+        if(customDelimiter.find()){
+            delimiters.add(customDelimiter.group(1).charAt(0));
+        }
 
         System.out.println(output);
         Console.close();
