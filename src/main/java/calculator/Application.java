@@ -9,6 +9,9 @@ public class Application {
         String input = Console.readLine();
         String output = "결과 : ";
 
+
+
         System.out.println(output);
+        Console.close();
     }
 }
