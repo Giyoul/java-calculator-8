@@ -35,10 +35,27 @@ public class Application {
         String numSeparateDelimiterPattern = delimiters.stream()
                 .map(d -> "\\" + d)
                 .collect(Collectors.joining("|"));
+
+//        if (remaining.startsWith(",") || remaining.startsWith(":") || remaining.startsWith(
+//                String.valueOf(delimiters.get(2)))) {
+//            throw new IllegalArgumentException("Format error: Input cannot start with delimiter.");
+//        }
+//
+//        if (remaining.endsWith(",") || remaining.endsWith(":") || remaining.endsWith(
+//                String.valueOf(delimiters.get(2)))) {
+//            throw new IllegalArgumentException("Format error: Input cannot start with delimiter.");
+//        }
+
         String[] nums = remaining.split(numSeparateDelimiterPattern);
 
         int ans = Arrays.stream(nums)
-                .mapToInt(Integer::parseInt)
+                .mapToInt(s -> {
+                    try {
+                        return Integer.parseInt(s);
+                    } catch (NumberFormatException e) {
+                        throw new IllegalArgumentException("Invalid argument: Include invalid character");
+                    }
+                })
                 .sum();
         output += String.valueOf(ans);
 
