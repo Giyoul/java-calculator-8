@@ -19,6 +19,7 @@
 - 커스텀 구분자가 쉼표, 콜론일 경우에  `IllegalArgumentException` 을 발생시킨 후 app을 종료시킨다.
 - 구분자가 연달아서 2번 이상 나올 경우에 `IllegalArgumentException` 을 발생시킨 후 app을 종료시킨다.
 - 커스텀 구분자가 2글자 이상일 경우에 `IllegalArgumentException` 을 발생시킨 후 app을 종료시킨다.
+- 커스텀 구분자가 0글자일 경우에 `IllegalArgumentException` 을 발생시킨 후 app을 종료시킨다. (ex. //\n)
 - 구분자로 지정되지 않은 문자가 나올 경우에 `IllegalArgumentException` 을 발생시킨 후 app을 종료시킨다.
 - 커스텀 구분자 지정 양식이 틀릴 경우에 `IllegalArgumentException` 을 발생시킨 후 app을 종료시킨다.
 - 구분자를 가진 문자열의 시작 혹은 끝이 구분자일 경우 `IllegalArgumentException` 을 발생시킨 후 app을 종료시킨다.
