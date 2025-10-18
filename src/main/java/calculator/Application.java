@@ -2,6 +2,7 @@ package calculator;
 
 import camp.nextstep.edu.missionutils.Console;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -24,9 +25,14 @@ public class Application {
 
         String remaining = customDelimiter.replaceFirst("");
         String numSeparateDelimiterPattern = delimiters.stream()
-                        .map(d -> "\\" + d)
-                                .collect(Collectors.joining("|"));
+                .map(d -> "\\" + d)
+                .collect(Collectors.joining("|"));
         String[] nums = remaining.split(numSeparateDelimiterPattern);
+
+        int ans = Arrays.stream(nums)
+                .mapToInt(Integer::parseInt)
+                .sum();
+        output += String.valueOf(ans);
 
         System.out.println(output);
         Console.close();
