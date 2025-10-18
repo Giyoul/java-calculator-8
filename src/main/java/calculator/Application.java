@@ -16,14 +16,19 @@ public class Application {
         String output = "결과 : ";
 
         List<Character> delimiters = new ArrayList<>(List.of(',', ':'));
-        Pattern customDelimiterPattern = Pattern.compile("^//(.)\\\\n"); // 문자열의 시작만 확인
+        Pattern customDelimiterPattern = Pattern.compile("^//(.+)\\\\n"); // 문자열의 시작만 확인
         Matcher customDelimiter = customDelimiterPattern.matcher(input);
 
         if(customDelimiter.find()){
-            if (customDelimiter.group(1).equals(",") || customDelimiter.group(1).equals(":")) {
+            String delimiter = customDelimiter.group(1);
+            if (delimiter.equals(",") || delimiter.equals(":")) {
                 throw new IllegalArgumentException("Invalid custom delimiter: ',' and ':' are not allowed");
             }
-            delimiters.add(customDelimiter.group(1).charAt(0));
+            if (delimiter.length() > 1) {
+                throw new IllegalArgumentException(
+                        "Invalid custom delimiter: Delimiter length must be less than or equal to 1");
+            }
+            delimiters.add(delimiter.charAt(0));
         }
 
         String remaining = customDelimiter.replaceFirst("");
