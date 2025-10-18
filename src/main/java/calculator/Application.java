@@ -54,7 +54,11 @@ public class Application {
         int ans = Arrays.stream(nums)
                 .mapToInt(s -> {
                     try {
-                        return Integer.parseInt(s);
+                        int num = Integer.parseInt(s);
+                        if (num < 0) {
+                            throw new IllegalArgumentException("Invalid argument: Negative numbers are not allowed");
+                        }
+                        return num;
                     } catch (NumberFormatException e) {
                         throw new IllegalArgumentException("Invalid argument: Include invalid character");
                     }
