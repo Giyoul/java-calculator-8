@@ -20,6 +20,9 @@ public class Application {
         Matcher customDelimiter = customDelimiterPattern.matcher(input);
 
         if(customDelimiter.find()){
+            if (customDelimiter.group(1).equals(",") || customDelimiter.group(1).equals(":")) {
+                throw new IllegalArgumentException("Invalid custom delimiter: ',' and ':' are not allowed");
+            }
             delimiters.add(customDelimiter.group(1).charAt(0));
         }
 
