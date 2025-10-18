@@ -47,6 +47,9 @@ public class Application {
         });
 
         String[] nums = remaining.split(numSeparateDelimiterPattern);
+        nums = Arrays.stream(nums)
+                .filter(s -> !s.isEmpty())
+                .toArray(String[]::new);
 
         int ans = Arrays.stream(nums)
                 .mapToInt(s -> {
