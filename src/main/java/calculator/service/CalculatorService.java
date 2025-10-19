@@ -1,5 +1,6 @@
 package calculator.service;
 
+import calculator.constants.ErrorMessage;
 import calculator.constants.RegexPattern;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,11 +33,10 @@ public class CalculatorService {
         if(customDelimiter.find()){
             String delimiter = customDelimiter.group(1);
             if (delimiter.equals(",") || delimiter.equals(":")) {
-                throw new IllegalArgumentException("Invalid custom delimiter: ',' and ':' are not allowed");
+                throw new IllegalArgumentException(ErrorMessage.INVALID_DELIMITER.getMessage());
             }
             if (delimiter.length() > 1) {
-                throw new IllegalArgumentException(
-                        "Invalid custom delimiter: Delimiter length must be less than or equal to 1");
+                throw new IllegalArgumentException(ErrorMessage.DELIMITER_LENGTH.getMessage());
             }
             delimiters.add(delimiter.charAt(0));
         }
@@ -58,10 +58,10 @@ public class CalculatorService {
         delimiters.stream().forEach(d -> {
             String delim = String.valueOf(d);
             if (remaining.startsWith(delim)) {
-                throw new IllegalArgumentException("Format error: Input cannot start with delimiter.");
+                throw new IllegalArgumentException(ErrorMessage.START_DELIMITER.getMessage());
             }
             if (remaining.endsWith(delim)) {
-                throw new IllegalArgumentException("Format error: Input cannot end with delimiter.");
+                throw new IllegalArgumentException(ErrorMessage.START_DELIMITER.getMessage());
             }
         });
 
@@ -77,11 +77,11 @@ public class CalculatorService {
                     try {
                         int num = Integer.parseInt(s);
                         if (num < 0) {
-                            throw new IllegalArgumentException("Invalid argument: Negative numbers are not allowed");
+                            throw new IllegalArgumentException(ErrorMessage.NEGATIVE_NUMBER.getMessage());
                         }
                         return num;
                     } catch (NumberFormatException e) {
-                        throw new IllegalArgumentException("Invalid argument: Include invalid character");
+                        throw new IllegalArgumentException(ErrorMessage.INVALID_CHARACTER.getMessage());
                     }
                 })
                 .sum();
