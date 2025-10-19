@@ -61,7 +61,7 @@ public class CalculatorService {
                 throw new IllegalArgumentException(ErrorMessage.START_DELIMITER.getMessage());
             }
             if (remaining.endsWith(delim)) {
-                throw new IllegalArgumentException(ErrorMessage.START_DELIMITER.getMessage());
+                throw new IllegalArgumentException(ErrorMessage.END_DELIMITER.getMessage());
             }
         });
 
