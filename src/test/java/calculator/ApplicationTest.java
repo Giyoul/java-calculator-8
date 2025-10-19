@@ -88,6 +88,86 @@ class ApplicationTest extends NsTest {
         );
     }
 
+    @Test
+    void 예외_테스트_커스텀_구분자가_쉼표_콜론인_경우_1() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("//,\\n1,2,3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 예외_테스트_커스텀_구분자가_쉼표_콜론인_경우_2() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("//:\\n1,2,3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 예외_테스트_커스텀_구분자가_두글자_이상인_경우() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("//?!\\n1,2,3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 예외_테스트_커스텀_구분자가_0글자인_경우() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("//\\n1,2,3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 예외_테스트_커스텀_구분자로_지정되지_않은_문자가_식에_존재하는_경우() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("//?\\n1,2!3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 예외_테스트_커스텀_구분자_지정_양식이_틀린_경우() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("/?/\n1,2,3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 예외_테스트_커스텀_구분자를_가진_문자열의_시작_혹은_끝이_구분자일_경우() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("//?\\?n1,2,3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 예외_테스트_덧셈_대상이_숫자가_아닌_경우() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("1,a,3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 예외_테스트_덧셈_대상이_소수인_경우() {
+        assertSimpleTest(() ->
+                assertThatThrownBy(() -> runException("1,2.3,3"))
+                        .isInstanceOf(IllegalArgumentException.class)
+        );
+    }
+
+    @Test
+    void 공백이_커스텀_구분자인_경우() {
+        assertSimpleTest(() -> {
+            run("// \\n1 2 3");
+            assertThat(output()).contains("결과 : 6");
+        });
+    }
+
 
     @Override
     public void runMain() {
