@@ -32,6 +32,30 @@ class ApplicationTest extends NsTest {
         });
     }
 
+    @Test
+    void 커스텀_구분자_없는_정상_입력_테스트_1() {
+        assertSimpleTest(() -> {
+            run("1,2");
+            assertThat(output()).contains("결과 : 3");
+        });
+    }
+
+    @Test
+    void 커스텀_구분자_없는_정상_입력_테스트_2() {
+        assertSimpleTest(() -> {
+            run("1,2,3");
+            assertThat(output()).contains("결과 : 6");
+        });
+    }
+
+    @Test
+    void 커스텀_구분자_없는_정상_입력_테스트_3() {
+        assertSimpleTest(() -> {
+            run("1,2:3");
+            assertThat(output()).contains("결과 : 6");
+        });
+    }
+
 
     @Override
     public void runMain() {
