@@ -1,5 +1,6 @@
 package calculator.service;
 
+import calculator.constants.RegexPattern;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +26,7 @@ public class CalculatorService {
 
     private List<Character> extractDelimiters(String input) {
         List<Character> delimiters = new ArrayList<>(List.of(',', ':'));
-        Pattern customDelimiterPattern = Pattern.compile("^//(.+)\\\\n"); // 문자열의 시작만 확인
+        Pattern customDelimiterPattern = RegexPattern.CUSTOM_DELIMITER.toPattern(); // 문자열의 시작만 확인
         Matcher customDelimiter = customDelimiterPattern.matcher(input);
 
         if(customDelimiter.find()){
@@ -44,7 +45,7 @@ public class CalculatorService {
     }
 
     private String removeCustomDelimiter(String input) {
-        Pattern customDelimiterPattern = Pattern.compile("^//(.+)\\\\n");
+        Pattern customDelimiterPattern = RegexPattern.CUSTOM_DELIMITER.toPattern();
         Matcher customDelimiter = customDelimiterPattern.matcher(input);
         return customDelimiter.replaceFirst("");
     }
