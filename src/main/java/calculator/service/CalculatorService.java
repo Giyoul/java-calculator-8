@@ -13,7 +13,7 @@ public class CalculatorService {
 
     public String calculate(String input) {
         // 1. Extract delimiter & validation check
-        List<Character> delimiters = extractDelimiters(input);
+        List<String> delimiters = extractDelimiters(input);
 
         // 2. Remove custom delimiter from input
         String remaining = removeCustomDelimiter(input);
@@ -25,8 +25,8 @@ public class CalculatorService {
         return calculateSum(numbers);
     }
 
-    private List<Character> extractDelimiters(String input) {
-        List<Character> delimiters = new ArrayList<>(List.of(',', ':'));
+    private List<String> extractDelimiters(String input) {
+        List<String> delimiters = new ArrayList<>(List.of(",", ":"));
         Pattern customDelimiterPattern = RegexPattern.CUSTOM_DELIMITER.toPattern(); // 문자열의 시작만 확인
         Matcher customDelimiter = customDelimiterPattern.matcher(input);
 
@@ -38,7 +38,7 @@ public class CalculatorService {
             if (delimiter.length() > 1) {
                 throw new IllegalArgumentException(ErrorMessage.DELIMITER_LENGTH.getMessage());
             }
-            delimiters.add(delimiter.charAt(0));
+            delimiters.add(delimiter);
         }
 
         return delimiters;
@@ -50,7 +50,7 @@ public class CalculatorService {
         return customDelimiter.replaceFirst("");
     }
 
-    private String[] splitByDelimiters(String remaining, List<Character> delimiters) {
+    private String[] splitByDelimiters(String remaining, List<String> delimiters) {
         String delimiterPattern = delimiters.stream()
                 .map(d -> "\\" + d)
                 .collect(Collectors.joining("|"));
